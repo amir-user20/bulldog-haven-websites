@@ -37,21 +37,43 @@ export function PuppyInterestForm({ puppy, onClose }: PuppyInterestFormProps) {
     setIsSubmitting(true);
     
     const form = e.currentTarget;
+    const formData = new FormData(form);
     
+    // Add hidden fields for Netlify
+    formData.append('form-name', 'puppy-interest');
+    formData.append('puppy_id', puppy.id);
+    formData.append('puppy_name', puppy.name);
+    formData.append('puppy_price', puppy.price);
+    formData.append('puppy_color', puppy.color);
+    formData.append('puppy_gender', puppy.gender);
+    formData.append('puppy_age', puppy.age);
+    
+    // For local development, log the form data
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Form data:', Object.fromEntries(formData.entries()));
+      
+      // Simulate successful submission in development
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Show success toast
+      toast({
+        title: 'Interest Submitted Successfully! (Development Mode)',
+        description: 'In production, this would submit to Netlify forms.',
+        className: 'bg-green-100 border-green-500 text-green-700',
+      });
+      
+      // Reset form and close
+      form.reset();
+      setSelectedFile(null);
+      setTimeout(() => {
+        onClose();
+        navigate('/');
+      }, 2000);
+      return;
+    }
+    
+    // Production: Submit to Netlify
     try {
-      // Netlify will automatically handle the form submission
-      const formData = new FormData(form);
-      
-      // Add hidden fields for Netlify
-      formData.append('form-name', 'puppy-interest');
-      formData.append('puppy_id', puppy.id);
-      formData.append('puppy_name', puppy.name);
-      formData.append('puppy_price', puppy.price);
-      formData.append('puppy_color', puppy.color);
-      formData.append('puppy_gender', puppy.gender);
-      formData.append('puppy_age', puppy.age);
-      
-      // Submit the form data
       const response = await fetch('/', {
         method: 'POST',
         body: formData,
@@ -119,6 +141,7 @@ export function PuppyInterestForm({ puppy, onClose }: PuppyInterestFormProps) {
           onSubmit={handleSubmit}
           className="space-y-6"
           encType="multipart/form-data"
+          action="/?no-cache=1"
         >
           <input type="hidden" name="form-name" value="puppy-interest" />
           <input type="hidden" name="puppy_id" value={puppy.id} />

@@ -1,0 +1,17 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Handle form submissions
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Enable form detection
+[dev]
+  publish = "dist"
+  command = "npm run dev"
