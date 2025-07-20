@@ -67,64 +67,38 @@ export function PuppyInterestForm({ puppy, onClose }: PuppyInterestFormProps) {
       return;
     }
     
-    // In production, let Netlify handle the form submission
+    // In production, use Netlify's form handling
     try {
-      // Create a hidden iframe for form submission
-      const iframe = document.createElement('iframe');
-      iframe.name = 'netlify-form-iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
+      // Create a hidden form that will be submitted to Netlify
+      const netlifyForm = document.createElement('form');
+      netlifyForm.method = 'POST';
+      netlifyForm.action = '/';
+      netlifyForm.style.display = 'none';
+      document.body.appendChild(netlifyForm);
       
-      // Set the form target to the iframe
-      form.setAttribute('target', 'netlify-form-iframe');
+      // Add all form data to the Netlify form
+      const formData = new FormData(form);
       
-      // Add hidden fields for Netlify
-      const hiddenFields = {
-        'form-name': 'puppy-interest',
-        'puppy_id': puppy.id,
-        'puppy_name': puppy.name,
-        'puppy_price': puppy.price,
-        'puppy_color': puppy.color,
-        'puppy_gender': puppy.gender,
-        'puppy_age': puppy.age
-      };
+      // Add Netlify-specific fields
+      formData.append('form-name', 'puppy-interest');
+      formData.append('puppy_id', puppy.id);
+      formData.append('puppy_name', puppy.name);
+      formData.append('puppy_price', puppy.price);
+      formData.append('puppy_color', puppy.color);
+      formData.append('puppy_gender', puppy.gender);
+      formData.append('puppy_age', puppy.age);
       
-      // Add hidden fields to the form
-      Object.entries(hiddenFields).forEach(([name, value]) => {
+      // Add all form data to the Netlify form
+      for (const [name, value] of formData.entries()) {
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = name;
-        input.value = value;
-        form.appendChild(input);
-      });
+        input.value = value as string;
+        netlifyForm.appendChild(input);
+      }
       
-      // Listen for the load event on the iframe
-      const formSubmitted = new Promise((resolve, reject) => {
-        iframe.onload = () => {
-          try {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-            if (iframeDoc?.body?.innerText.includes('Thank you')) {
-              resolve(true);
-            } else {
-              reject(new Error('Form submission failed'));
-            }
-          } catch (e) {
-            // Cross-origin error, assume success
-            resolve(true);
-          }
-        };
-        
-        // Fallback in case iframe doesn't load
-        setTimeout(() => {
-          resolve(true);
-        }, 3000);
-      });
-      
-      // Submit the form
-      form.submit();
-      
-      // Wait for the form to be submitted
-      await formSubmitted;
+      // Submit the Netlify form
+      netlifyForm.submit();
       
       // Show success message
       toast({
@@ -138,8 +112,7 @@ export function PuppyInterestForm({ puppy, onClose }: PuppyInterestFormProps) {
       setSelectedFile(null);
       
       // Clean up
-      document.body.removeChild(iframe);
-      form.removeAttribute('target');
+      document.body.removeChild(netlifyForm);
       
       // Navigate after a short delay
       setTimeout(() => {
@@ -178,16 +151,24 @@ export function PuppyInterestForm({ puppy, onClose }: PuppyInterestFormProps) {
           </button>
         </div>
         
+        {/* Hidden form that will be submitted to Netlify */}
+        <div style={{ display: 'none' }}>
+          <form 
+            name="puppy-interest"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            data-netlify-recaptcha="true"
+          >
+            {/* Hidden fields are now in the separate Netlify form */}
+          </form>
+        </div>
+        
+        {/* Visible form for user interaction */}
         <form 
-          name="puppy-interest"
-          method="POST"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
           className="space-y-6"
           encType="multipart/form-data"
-          action="/"
-          data-netlify-recaptcha="true"
         >
           <input type="hidden" name="form-name" value="puppy-interest" />
           <input type="hidden" name="puppy_id" value={puppy.id} />
