@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, Heart, Phone } from 'lucide-react';
+import { Menu, X, Heart, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -8,11 +8,11 @@ const Navigation = () => {
 
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'Available Bulldogs', href: '#bulldogs' },
+    { name: 'Available Bulldogs', href: '/bulldogs' },
     { name: 'About Us', href: '/about' },
     { name: 'Breed Info', href: '/breed-info' },
     { name: 'Testimonials', href: '/testimonials' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -58,9 +58,11 @@ const Navigation = () => {
 
           {/* Contact Button */}
           <div className="hidden md:flex items-center">
-            <Button variant="default" className="shadow-gentle">
-              <Phone className="h-4 w-4 mr-2" />
-              Call Us
+            <Button variant="default" className="shadow-gentle" asChild>
+              <Link to="/contact">
+                <Mail className="h-4 w-4 mr-2" />
+                Contact Us
+              </Link>
             </Button>
           </div>
 
@@ -101,9 +103,11 @@ const Navigation = () => {
                 )
               ))}
               <div className="pt-2">
-                <Button variant="default" className="w-full shadow-gentle">
-                  <Phone className="h-4 w-4 mr-2" />
-                  Call Us
+                <Button variant="default" className="w-full shadow-gentle" asChild>
+                  <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
+                    <Mail className="h-4 w-4 mr-2" />
+                    Contact Us
+                  </Link>
                 </Button>
               </div>
             </div>

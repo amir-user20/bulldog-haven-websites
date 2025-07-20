@@ -7,6 +7,10 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import Testimonials from "./pages/Testimonials";
 import BreedInfo from "./pages/BreedInfo";
+import Bulldogs from "./pages/Bulldogs";
+import PuppyProfile from "./components/PuppyProfile";
+import { PaymentConfirmation } from "./pages/PaymentConfirmation";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +26,10 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/breed-info" element={<BreedInfo />} />
+          <Route path="/bulldogs" element={<Bulldogs />} />
+          <Route path="/puppy/:id" element={<PuppyProfile />} />
+          <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
+          <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

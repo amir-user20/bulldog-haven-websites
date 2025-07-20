@@ -1,0 +1,49 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Form handling configuration
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "same-origin"
+
+# Enable form submissions processing
+[functions]
+  node_bundler = "esbuild"
+
+# Handle form submissions
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+# Form submissions settings
+[forms]
+  # Enable form detection
+  enabled = true
+  # Increase file upload limit to 10MB
+  file_uploads = true
+  allowed_domains = ["bulldog-haven.netlify.app", "localhost"]
+
+# File upload settings
+[[redirects]]
+  from = "/uploads/*"
+  to = "/.netlify/uploads/:splat"
+  status = 200
+
+# Development settings
+[dev]
+  targetPort = 5173  # Vite's default port
+  framework = "#custom"
+  command = "npm run dev"
+  port = 5173

@@ -4,10 +4,9 @@ import heroImage from '@/assets/hero-bulldog.jpg';
 
 const Hero = () => {
   return (
-    <section className="relative bg-gradient-hero py-20 lg:py-32 overflow-hidden" id="home">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
+    <section className="relative bg-gradient-hero overflow-hidden" id="home">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-24">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Content */}
           <div className="space-y-8">
             <div className="space-y-4">
@@ -16,12 +15,12 @@ const Hero = () => {
                 Premium English Bulldogs
               </div>
               
-              <h1 className="font-serif text-4xl lg:text-6xl font-bold text-foreground leading-tight">
+              <h1 className="font-serif text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
                 Find Your New
                 <span className="text-primary block">Best Friend</span>
               </h1>
               
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
+              <p className="text-lg text-muted-foreground leading-relaxed">
                 Welcome to BullDog Daily, where we've been connecting loving families with 
                 healthy, well-socialized English Bulldog puppies for over 10 years. 
                 Our ethical breeding practices ensure you get a lifelong companion.
@@ -42,29 +41,17 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="shadow-warm bg-gradient-warm hover:bg-gradient-warm/90 text-primary-foreground">
-                View Available Bulldogs
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-              <Button variant="secondary" size="lg" className="shadow-gentle">
-                Learn About Our Process
-              </Button>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-8">
-              <div className="text-center">
-                <div className="font-serif text-2xl font-bold text-primary">500+</div>
-                <div className="text-sm text-muted-foreground">Happy Families</div>
-              </div>
-              <div className="text-center">
-                <div className="font-serif text-2xl font-bold text-primary">10+</div>
-                <div className="text-sm text-muted-foreground">Years Experience</div>
-              </div>
-              <div className="text-center">
-                <div className="font-serif text-2xl font-bold text-primary">100%</div>
-                <div className="text-sm text-muted-foreground">Health Guarantee</div>
-              </div>
+              <a href="/bulldogs" className="block">
+                <Button size="lg" className="shadow-warm bg-gradient-warm hover:bg-gradient-warm/90 text-primary-foreground">
+                  View Available Bulldogs
+                  <ArrowRight className="h-5 w-5 ml-2" />
+                </Button>
+              </a>
+              <a href="/breed-info">
+                <Button variant="secondary" size="lg" className="shadow-gentle">
+                  Learn About Our Process
+                </Button>
+              </a>
             </div>
           </div>
 
@@ -81,6 +68,26 @@ const Hero = () => {
             {/* Decorative Elements */}
             <div className="absolute -top-6 -right-6 w-24 h-24 bg-warm-gold/20 rounded-full blur-xl"></div>
             <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-soft-blue/20 rounded-full blur-xl"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats Section - Positioned below both columns */}
+      <div className="mt-12 bg-muted/30 py-12 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6 bg-card rounded-lg shadow-gentle hover:shadow-warm transition-shadow duration-300">
+              <div className="font-serif text-3xl font-bold text-primary mb-2">500+</div>
+              <div className="text-sm text-muted-foreground uppercase tracking-wider">Happy Families</div>
+            </div>
+            <div className="text-center p-6 bg-card rounded-lg shadow-gentle hover:shadow-warm transition-shadow duration-300">
+              <div className="font-serif text-3xl font-bold text-primary mb-2">10+</div>
+              <div className="text-sm text-muted-foreground uppercase tracking-wider">Years Experience</div>
+            </div>
+            <div className="text-center p-6 bg-card rounded-lg shadow-gentle hover:shadow-warm transition-shadow duration-300">
+              <div className="font-serif text-3xl font-bold text-primary mb-2">100%</div>
+              <div className="text-sm text-muted-foreground uppercase tracking-wider">Health Guarantee</div>
+            </div>
           </div>
         </div>
       </div>

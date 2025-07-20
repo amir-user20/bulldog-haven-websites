@@ -2,6 +2,8 @@ import { Heart, Shield, Clock, Home, Utensils, Activity, Stethoscope, Brush } fr
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const BreedInfo = () => {
   const characteristics = [
@@ -77,6 +79,7 @@ const BreedInfo = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
       {/* Hero Section */}
       <section className="bg-gradient-hero py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -95,33 +98,51 @@ const BreedInfo = () => {
       </section>
 
       {/* Breed Overview */}
-      <section className="py-20">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-            <div>
-              <h2 className="font-serif text-3xl font-bold text-foreground mb-6">About English Bulldogs</h2>
-              <p className="text-muted-foreground mb-6">
-                English Bulldogs are gentle, friendly, and loyal companions known for their distinctive 
-                appearance and calm temperament. Originally bred in England, these dogs have evolved from 
-                their aggressive bull-baiting origins into loving family pets.
-              </p>
-              <p className="text-muted-foreground mb-6">
-                With their wrinkled faces, stocky build, and characteristic "smushed" nose, bulldogs are 
-                instantly recognizable. Despite their somewhat intimidating appearance, they are incredibly 
-                gentle and make excellent companions for families, singles, and seniors alike.
-              </p>
-              <p className="text-muted-foreground">
-                Their low energy requirements and adaptable nature make them perfect for apartment living, 
-                though they do require special attention to their breathing and temperature regulation needs.
-              </p>
+          <div className="mb-16">
+            <h2 className="font-serif text-3xl font-bold text-foreground mb-8 text-center">About English Bulldogs</h2>
+            <div className="flex flex-col lg:flex-row gap-8 items-start">
+              <div className="lg:w-1/2">
+                <div className="relative h-full">
+                  <img 
+                    src="/src/assets/hero-bulldog.jpg" 
+                    alt="English Bulldog" 
+                    className="w-full h-auto rounded-xl shadow-lg object-cover"
+                  />
+                  <div className="absolute -top-4 -right-4 w-16 h-16 bg-warm-gold/20 rounded-full blur-xl"></div>
+                  <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-soft-blue/20 rounded-full blur-xl"></div>
+                </div>
+              </div>
+              <div className="lg:w-1/2 space-y-6">
+                <p className="text-muted-foreground">
+                  English Bulldogs are gentle, friendly, and loyal companions known for their distinctive 
+                  appearance and calm temperament. Originally bred in England, these dogs have evolved from 
+                  their aggressive bull-baiting origins into loving family pets.
+                </p>
+                <p className="text-muted-foreground">
+                  With their wrinkled faces, stocky build, and characteristic "smushed" nose, bulldogs are 
+                  instantly recognizable. Despite their somewhat intimidating appearance, they are incredibly 
+                  gentle and make excellent companions for families, singles, and seniors alike.
+                </p>
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+          </div>
+
+          {/* Characteristics Grid */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-foreground mb-10 text-center">Key Characteristics</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
               {characteristics.map((char, index) => (
-                <Card key={index} className="text-center shadow-gentle">
-                  <CardContent className="p-4">
-                    <char.icon className="h-8 w-8 text-primary mx-auto mb-2" />
-                    <div className="font-medium text-foreground text-sm">{char.label}</div>
-                    <div className="text-xs text-muted-foreground">{char.value}</div>
+                <Card key={index} className="shadow-gentle hover:shadow-md transition-all hover:-translate-y-1">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col items-center space-y-3">
+                      <div className="p-3 bg-primary/10 rounded-full">
+                        <char.icon className="h-10 w-10 text-primary" />
+                      </div>
+                      <div className="font-medium text-foreground text-sm text-center">{char.label}</div>
+                      <div className="text-sm text-muted-foreground text-center">{char.value}</div>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -359,6 +380,7 @@ const BreedInfo = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

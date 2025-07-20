@@ -1,6 +1,8 @@
 import { Star, Heart, Quote } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const Testimonials = () => {
   const testimonials = [
@@ -81,6 +83,7 @@ const Testimonials = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
       {/* Hero Section */}
       <section className="bg-gradient-hero py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -189,6 +192,7 @@ const Testimonials = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
