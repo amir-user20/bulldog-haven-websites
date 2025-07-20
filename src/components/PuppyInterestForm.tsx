@@ -37,29 +37,24 @@ export function PuppyInterestForm({ puppy, onClose }: PuppyInterestFormProps) {
     setIsSubmitting(true);
     
     const form = e.currentTarget;
-    const formData = new FormData(form);
     
-    // Add hidden fields for Netlify
-    formData.append('form-name', 'puppy-interest');
-    formData.append('puppy_id', puppy.id);
-    formData.append('puppy_name', puppy.name);
-    formData.append('puppy_price', puppy.price);
-    formData.append('puppy_color', puppy.color);
-    formData.append('puppy_gender', puppy.gender);
-    formData.append('puppy_age', puppy.age);
-    
-    // For local development, log the form data
+    // In development, simulate form submission
     if (process.env.NODE_ENV === 'development') {
-      console.log('Form data:', Object.fromEntries(formData.entries()));
+      console.log('Form submission data:', {
+        formName: 'puppy-interest',
+        puppyId: puppy.id,
+        puppyName: puppy.name,
+        // Add other form fields as needed
+      });
       
-      // Simulate successful submission in development
+      // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Show success toast
+      // Show success message
       toast({
-        title: 'Interest Submitted Successfully! (Development Mode)',
-        description: 'In production, this would submit to Netlify forms.',
-        className: 'bg-green-100 border-green-500 text-green-700',
+        title: 'Form Submitted Successfully!',
+        description: 'In development mode, this simulates a successful form submission.',
+        variant: 'default',
       });
       
       // Reset form and close
@@ -72,16 +67,30 @@ export function PuppyInterestForm({ puppy, onClose }: PuppyInterestFormProps) {
       return;
     }
     
-    // Production: Submit to Netlify
+    // In production, let Netlify handle the form submission
     try {
+      // The form will be submitted to Netlify's endpoint automatically
+      // due to the data-netlify="true" attribute and the hidden form-name field
+      const formData = new FormData(form);
+      formData.append('puppy_id', puppy.id);
+      formData.append('puppy_name', puppy.name);
+      formData.append('puppy_price', puppy.price);
+      formData.append('puppy_color', puppy.color);
+      formData.append('puppy_gender', puppy.gender);
+      formData.append('puppy_age', puppy.age);
+      
+      // For debugging
+      console.log('Submitting form to Netlify...');
+      
+      // Submit the form data to Netlify
       const response = await fetch('/', {
         method: 'POST',
         body: formData,
         headers: {
-          'Accept': 'application/json',
+          'Accept': 'application/x-www-form-urlencoded',
         },
       });
-
+      
       if (response.ok) {
         // Show success toast
         toast({
